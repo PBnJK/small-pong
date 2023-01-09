@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Paddle/scn_paddle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ball/scn_ball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Level/gds_level.gd" type="Script" id=3]
+[ext_resource path="res://Level/dotted-line.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 148 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 256, 8 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="BG" type="ColorRect" parent="."]
+margin_left = -256.0
+margin_top = -150.0
+margin_right = 256.0
+margin_bottom = 150.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Paddle" parent="." instance=ExtResource( 1 )]
+position = Vector2( -224, 0 )
+
+[node name="Paddle2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 224, 0 )
+scale = Vector2( -1, 1 )
+player_id = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="WinZones" type="Node2D" parent="."]
+
+[node name="P1Wins" type="Area2D" parent="WinZones"]
+position = Vector2( 264, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinZones/P1Wins"]
+shape = SubResource( 1 )
+
+[node name="P2Wins" type="Area2D" parent="WinZones"]
+position = Vector2( -264, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinZones/P2Wins"]
+shape = SubResource( 1 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="TopCol" type="StaticBody2D" parent="Blocks"]
+position = Vector2( 0, -158 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/TopCol"]
+shape = SubResource( 2 )
+
+[node name="BottomCol" type="StaticBody2D" parent="Blocks"]
+position = Vector2( 0, 158 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/BottomCol"]
+shape = SubResource( 2 )
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+
+[node name="Label" type="Label" parent="."]
+margin_left = -64.0
+margin_top = -128.0
+margin_right = -48.0
+margin_bottom = -114.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 16, 12 )
+rect_scale = Vector2( 4, 4 )
+text = "0"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 32.0
+margin_top = -128.0
+margin_right = 48.0
+margin_bottom = -114.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 16, 12 )
+rect_scale = Vector2( 4, 4 )
+text = "0"
+
+[node name="Beeper" type="AudioStreamPlayer" parent="."]
+volume_db = -12.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = -160.0
+margin_top = -86.0
+margin_bottom = -46.0
+rect_min_size = Vector2( 320, 40 )
+
+[node name="FlavorText" type="Label" parent="CenterContainer"]
+margin_left = 152.0
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 16, 12 )
+
+[node name="Line1" type="Line2D" parent="."]
+position = Vector2( 0, -80 )
+points = PoolVector2Array( 0, -64, 0, 64 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="Line2" type="Line2D" parent="."]
+position = Vector2( 0, 80 )
+points = PoolVector2Array( 0, -64, 0, 64 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 4 )
+texture_mode = 1
